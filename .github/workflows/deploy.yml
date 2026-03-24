@@ -14,9 +14,23 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: better-belt  # <-- Carpeta donde está tu Astro
     steps:
       - uses: actions/checkout@v5
+
+      # Instalar Node y dependencias
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 22
+      - run: npm install
+
+      # Construir el proyecto Astro
       - uses: withastro/action@v5
+        with:
+          path: better-belt  # <-- Carpeta de tu proyecto
+          out-dir: dist      # <-- Carpeta de salida para GitHub Pages
 
   deploy:
     needs: build
@@ -24,5 +38,8 @@ jobs:
     environment:
       name: github-pages
     steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v5
+      - uses: actions/deploy-pages@v4
+        with:
+          # Carpeta generada por la build de Astro
+          folder: better-belt/dist
