@@ -1,10 +1,6 @@
----
-import Contador from "../components/Contador.jsx";
----
+import Welcome from '../components/Welcome.astro';
+import Layout from '../layouts/Layout.astro';
 
-<html>
-  <body>
-    <h1>Mi primera app con Astro + React</h1>
-    <Contador client:load />
-  </body>
-</html>
+<Layout>
+	<Welcome />
+</Layout>
