@@ -5,43 +5,42 @@ const categories = [
   {
     label: 'Servidor',
     items: [
-      { name: 'spaCy',   role: 'Detección de LN', color: '#8e78f1' },
-      { name: 'Simhash',  role: 'Detección de duplicados',  color: '#8e78f1' },
-	  { name: 'ChromaDB',  role: 'Busqueda similitud vectorial',  color: '#8e78f1' },
-	  { name: 'Cosine Similarity',  role: 'Detección de similitudes',  color: '#8e78f1' },
-
+      { name: 'spaCy', role: 'Detección de LN', color: '#8e78f1', icon: '🧠' },
+      { name: 'Simhash', role: 'Detección de duplicados', color: '#8e78f1', icon: '🔗' },
+      { name: 'ChromaDB', role: 'Busqueda similitud vectorial', color: '#8e78f1', icon: '📐' },
+      { name: 'Cosine Similarity', role: 'Detección de similitudes', color: '#8e78f1', icon: '📊' },
     ]
   },
   {
     label: 'Modelo',
     items: [
-      { name: 'AST',        role: 'Analisis Estructural', color: '#e0f2fe' },
+      { name: 'AST', role: 'Analisis Estructural', color: '#e0f2fe', icon: '🌳' },
     ]
   },
   {
     label: 'Herramientas',
     items: [
-      { name: 'WCopyfind',         role: 'Detección de coincidencias de frases',  color: '#fff3e0'},
-	  { name: 'PyPDF',         role: 'Extracción de texto de PDFs',  color: '#dcd0be'}
+      { name: 'WCopyfind', role: 'Detección de coincidencias', color: '#fff3e0', icon: '🔍' },
+      { name: 'PyPDF', role: 'Extracción de texto', color: '#dcd0be', icon: '📄' }
     ]
   },
 ];
 ---
 
 <div id="container">
-  <img id="background" src={background.src} alt="" fetchpriority="high" />
+  <div id="bg-wrapper" aria-hidden="true">
+    <img id="background-img" src={background.src} alt="" fetchpriority="high" />
+  </div>
+
   <main>
     <section id="hero">
+      <div id="badge">Project Stack</div>
       <h1>Anyelolol Stack</h1>
-	  <h2>PlagDec</h2>
-	<p class="description">
-		PlagDec es un módulo basado en inteligencia artificial diseñado para la detección de plagio en documentos digitales. 
-		El sistema combina técnicas de procesamiento de lenguaje natural, análisis estructural y comparación semántica 
-		para identificar similitudes, duplicados y posibles coincidencias entre textos. 
-
-		Integra herramientas como análisis mediante AST, búsqueda vectorial y algoritmos de similitud, permitiendo 
-		evaluar contenido de forma más precisa que los métodos tradicionales basados únicamente en coincidencias exactas.
-	</p>
+      <h2>PlagDec</h2>
+      <p class="description">
+        PlagDec es un módulo basado en inteligencia artificial diseñado para la detección de plagio en documentos digitales. 
+        El sistema combina técnicas de procesamiento de lenguaje natural y análisis estructural.
+      </p>
 
       <div id="categories">
         {categories.map(cat => (
@@ -61,88 +60,124 @@ const categories = [
       </div>
     </section>
   </main>
-
 </div>
 
 <style>
-  #background {
-    position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -1; filter: blur(100px);
+  /* Contenedor del fondo para evitar bordes blancos por el blur */
+  #bg-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    background-color: #f9fafb; /* Color base por si la imagen tarda en cargar */
   }
+
+  #background-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Un blur de 100px es muy alto, 40-60px suele verse más elegante */
+    filter: blur(60px); 
+    /* El scale compensa el desenfoque en los bordes */
+    transform: scale(1.2); 
+  }
+
   #container {
-    font-family: Inter, Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Inter Variable', Inter, sans-serif;
     min-height: 100vh;
   }
+
   main {
     display: flex;
     justify-content: center;
-    padding: 2rem 1rem 6rem;
+    padding: 4rem 1.5rem;
   }
+
   #hero {
-    display: flex; flex-direction: column;
-    align-items: flex-start; gap: 12px;
-    max-width: 700px; width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    max-width: 800px;
+    width: 100%;
   }
+
   #badge {
     background: linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%);
-    color: white; font-size: 0.7rem; font-weight: 600;
-    padding: 3px 12px; border-radius: 20px;
-    text-transform: uppercase; letter-spacing: 0.05em;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 99px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
-  h1 { font-size: 1.8rem; margin: 0; color: #111827; }
-  #hero > p { font-size: 1rem; color: #6b7280; margin: 0; }
+
+  h1 { font-size: 2.5rem; font-weight: 800; margin: 0; color: #111827; letter-spacing: -0.02em; }
+  h2 { font-size: 1.5rem; color: #4b5563; margin: -8px 0 0; }
+  .description { font-size: 1.1rem; color: #4b5563; line-height: 1.6; max-width: 65ch; }
 
   #categories {
-    display: flex; flex-direction: column;
-    gap: 20px; width: 100%; margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+    margin-top: 2rem;
   }
-  .category { display: flex; flex-direction: column; gap: 8px; }
+
+  .category { display: flex; flex-direction: column; gap: 12px; }
+  
   .cat-label {
-    font-size: 0.72rem; font-weight: 600; color: #6b7280;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    padding-left: 2px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
+
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
   }
-  .card {
-    background: rgba(255,255,255,0.85);
-    border: 1px solid rgba(255,255,255,0.9);
-    border-radius: 14px; padding: 12px 10px;
-    display: flex; flex-direction: column;
-    align-items: center; gap: 6px;
-    backdrop-filter: blur(10px);
-    transition: transform 0.2s;
-  }
-  .card:hover { transform: translateY(-3px); }
-  .icon {
-    width: 36px; height: 36px; border-radius: 9px;
-    display: flex; align-items: center;
-    justify-content: center; font-size: 18px;
-  }
-  .name { font-size: 0.8rem; font-weight: 600; color: #111827; text-align: center; }
-  .role { font-size: 0.7rem; color: #6b7280; text-align: center; }
 
-  .box {
-    background: rgba(255,255,255,1);
-    border-radius: 16px; border: 1px solid white; padding: 16px;
+  .card {
+    /* Fondo semi-transparente para el efecto Glassmorphism */
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(12px); /* Esto hace que la card se vea "frosted glass" */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
   }
-  #news {
-    position: fixed; bottom: 16px; right: 16px;
-    max-width: 320px; display: flex; gap: 12px; align-items: flex-start;
-    backdrop-filter: blur(50px); transition: background 0.2s;
-    text-decoration: none;
+
+  .card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
-  #news:hover { background: rgba(255,255,255,0.55); }
-  .news-icon { font-size: 24px; }
-  h2 { margin: 0 0 0.4em; font-weight: 600; color: #111827; font-size: 0.95rem; }
-  #news p { color: #4b5563; font-size: 0.8rem; line-height: 1.4; margin: 0; }
+
+  .icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+  }
+
+  .name { font-size: 0.9rem; font-weight: 600; color: #111827; }
+  .role { font-size: 0.75rem; color: #6b7280; text-align: center; line-height: 1.3; }
 
   @media (max-width: 600px) {
     .grid { grid-template-columns: repeat(2, 1fr); }
-    #news { left: 16px; right: 16px; max-width: 100%; position: relative; margin: 1rem; }
+    h1 { font-size: 2rem; }
   }
 </style>
